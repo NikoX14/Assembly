@@ -1,0 +1,84 @@
+TITLE ASKHSH
+KODIKAS SEGMENT
+    ASSUME CS:KODIKAS, DS:DEDOMENA
+    ARXI:
+            MOV AX,DEDOMENA	
+    	    MOV DS,AX	
+            
+                                                             
+            ;EMFANISI MINIMATOS
+            LEA DX,MINIMA
+            MOV AH,9
+            INT 21H    
+            
+            EPANALIPSI:
+                ;INPUT NUBMER
+                MOV AH,08h
+                INT 21H
+                
+                ;EMFANISH INPUT
+                MOV DL,AL  
+                MOV AH,02H
+                INT 21H         
+                MOV AL,DL 
+
+                 
+            ;ELEGHXOS AN DEN EINAI MEGALITERO TOY 0
+            CMP AL,0
+            JB EPANALIPSI
+            
+            ;ELEGHOX AN DEN EINAI MIKROTEROS TOY 0
+            CMP AL,9
+            JNA EPANALIPSI 
+         
+            MOV DL,10
+            MOV AH,02H
+            INT 21H    
+            
+            CMP AL,0
+            JNE EMFMID   
+                   
+                    
+                   
+            
+            CMP AL,2
+            JC EMFPER   
+             
+            
+            LEA DX,ARTIOS
+            MOV AH,9
+            INT 21H 
+            JMP EDO    
+            
+                
+                     
+            EMFPER:
+                LEA DX,PER
+                MOV AH,9
+                INT 21H
+                JMP EDO
+                
+                            
+            EMFMID:
+                LEA DX,MIDEN
+                MOV AH,9
+                INT 21H
+                JMP EDO
+                   
+            
+           
+            EDO:                    
+                MOV AH,4CH
+                INT 21H
+    
+KODIKAS ENDS
+DEDOMENA SEGMENT  
+    MINIMA DB "EISAGETAI ENA MONOPSIFIO: $"
+    MIDEN DB "EINAI MIDEN$"   
+    PER DB "EINAI PERITTOS$"
+    ARTIOS DB "EINAI ARTIOS$"      
+DEDOMENA ENDS   
+    
+    
+
+END ARXI
